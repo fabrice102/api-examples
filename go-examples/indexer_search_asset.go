@@ -9,13 +9,12 @@ import (
 	"github.com/algorand/go-algorand-sdk/client/v2/indexer"
 )
 
-
 func main() {
-	const algodAddress = "https://testnet-algorand.api.purestake.io/idx2"
+	const indexerAddress = "https://testnet-algorand.api.purestake.io/idx2"
 	const psTokenKey = "X-API-Key"
 	const psToken = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab"
 
-	commonClient, err := common.MakeClient(algodAddress, psTokenKey, psToken)
+	commonClient, err := common.MakeClient(indexerAddress, psTokenKey, psToken)
 	if err != nil {
 		fmt.Printf("failed to make common client: %s\n", err)
 		return

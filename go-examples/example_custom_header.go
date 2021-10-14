@@ -8,7 +8,6 @@ import (
 	"github.com/algorand/go-algorand-sdk/client/v2/common"
 )
 
-
 func main() {
 	const algodAddress = "https://testnet-algorand.api.purestake.io/ps2"
 	const psTokenKey = "X-API-Key"

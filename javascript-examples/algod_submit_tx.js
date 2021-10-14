@@ -6,19 +6,19 @@ const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
 const port = "";
 
 const token = {
-    'X-API-key' : 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
+    'X-API-key': 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
 }
 
 let algodClient = new algosdk.Algodv2(token, baseServer, port);
 
-(async() => {
+(async () => {
 
     let params = await algodClient.getTransactionParams().do();
-    
+
     let amount = Math.floor(Math.random() * 1000);
-    var mnemonic = "code thrive mouse code badge example pride stereo sell viable adjust planet text close erupt embrace nature upon february weekend humble surprise shrug absorb faint"; 
-    var recoveredAccount = algosdk.mnemonicToSecretKey(mnemonic); 
-    
+    var mnemonic = "code thrive mouse code badge example pride stereo sell viable adjust planet text close erupt embrace nature upon february weekend humble surprise shrug absorb faint";
+    var recoveredAccount = algosdk.mnemonicToSecretKey(mnemonic);
+
     let txn = {
         "from": recoveredAccount.addr,
         "to": "UUOB7ZC2IEE4A7JO4WY4TXKXWDFNATM43TL73IZRAFIFFOE6ORPKC7Q62E",

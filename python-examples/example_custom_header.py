@@ -10,7 +10,7 @@ import json
 algod_address = "https://testnet-algorand.api.purestake.io/ps2"
 algod_token = ""
 headers = {
-   "X-API-Key": "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab",
+    "X-API-Key": "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab",
 }
 
 algod_client = algod.AlgodClient(algod_token, algod_address, headers)
