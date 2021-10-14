@@ -1,16 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
-    "github.com/algorand/go-algorand-sdk/client/v2/algod"
-    "github.com/algorand/go-algorand-sdk/client/v2/common"
+	"github.com/algorand/go-algorand-sdk/client/v2/algod"
+	"github.com/algorand/go-algorand-sdk/client/v2/common"
 	"github.com/algorand/go-algorand-sdk/crypto"
+	transaction "github.com/algorand/go-algorand-sdk/future"
 	"github.com/algorand/go-algorand-sdk/mnemonic"
 )
-import transaction "github.com/algorand/go-algorand-sdk/future"
-
 
 // Function from Algorand Inc. - utility for waiting on a transaction confirmation
 func waitForConfirmation(txID string, client *algod.Client) {

@@ -24,11 +24,11 @@ import multiprocessing
 from multiprocessing import Process, Queue, Value, Lock
 from algosdk import account, mnemonic
 
+
 # generates accounts and looks for a match for the provided pattern.
 # queue and count are shared variables that can be updated from a
 # subprocess
 def find_address(pattern, queue, count):
-
     while True:
         with count.get_lock():
             count.value += 1
@@ -40,6 +40,7 @@ def find_address(pattern, queue, count):
             queue.put((address, private_key))
             break
 
+
 # handler for user ctrl-c action
 def signal_handler(sig, frame):
     print("")
@@ -47,16 +48,19 @@ def signal_handler(sig, frame):
     terminate_processes()
     sys.exit(1)
 
+
 # calculate and format running time
 def get_running_time():
     running_time = time.time() - start_time
-    running_time_str = str(round(running_time, 2)) # float formatted to string with 2 decimal places
+    running_time_str = str(round(running_time, 2))  # float formatted to string with 2 decimal places
     return running_time_str
+
 
 # cleanup spawned processes
 def terminate_processes():
     for p in jobs:
         p.terminate()
+
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
@@ -77,13 +81,13 @@ if __name__ == '__main__':
         jobs.append(p)
         p.start()
 
-    signal.signal(signal.SIGINT, signal_handler) # capture ctrl-c so we can report attempts and running time
+    signal.signal(signal.SIGINT, signal_handler)  # capture ctrl-c so we can report attempts and running time
 
-    address, private_key = queue.get() # this will return once one of the spawned processes finds a match
+    address, private_key = queue.get()  # this will return once one of the spawned processes finds a match
     if (address):
-        print("Found a match for " + pattern + " after " + str(count.value) + " tries in " + get_running_time() + " seconds")
+        print("Found a match for " + pattern + " after " + str(
+            count.value) + " tries in " + get_running_time() + " seconds")
         print("Address: ", address)
         print("Private key: ", mnemonic.from_private_key(private_key))
 
     terminate_processes()
-
