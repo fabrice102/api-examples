@@ -1,4 +1,5 @@
 import json
+
 from algosdk.v2client import indexer
 
 indexer_address = "https://testnet-algorand.api.purestake.io/idx2"

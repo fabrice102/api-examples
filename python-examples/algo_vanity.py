@@ -4,7 +4,7 @@
 #
 # Depends on py-algorand-sdk which can be installed with:
 #
-# pip3 install py-algorand-sdk
+# pip3 install py-algorand-sdk --upgrade
 #
 # If you don't have pip3 you can install it with:
 #
@@ -16,12 +16,12 @@
 #
 
 import argparse
-import time
-import signal
-import sys
-import os
 import multiprocessing
 from multiprocessing import Process, Queue, Value, Lock
+import signal
+import sys
+import time
+
 from algosdk import account, mnemonic
 
 
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)  # capture ctrl-c so we can report attempts and running time
 
     address, private_key = queue.get()  # this will return once one of the spawned processes finds a match
-    if (address):
+    if address:
         print("Found a match for " + pattern + " after " + str(
             count.value) + " tries in " + get_running_time() + " seconds")
         print("Address: ", address)

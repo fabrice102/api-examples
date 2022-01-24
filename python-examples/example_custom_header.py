@@ -4,8 +4,9 @@
 # default "X-Algo-API-Token". This is done by using a dict with our custom
 # key, instead of a string, as the token.
 
-from algosdk.v2client import algod
 import json
+
+from algosdk.v2client import algod
 
 algod_address = "https://testnet-algorand.api.purestake.io/ps2"
 algod_token = ""

@@ -1,13 +1,6 @@
-# 1.4.0 update to add flat-fee=True to avoid bug in the SDK
-# In 1.4.0 it is no longer necessary to declare the content type of the send_transaction
-# headers={'content-type': 'application/x-binary'}
-
-import json
-import time
-import base64
 from algosdk.v2client import algod
-from algosdk import mnemonic
-from algosdk import transaction
+from algosdk import mnemonic, account
+from algosdk.future.transaction import PaymentTxn
 
 
 # Function from Algorand Inc.
@@ -30,28 +23,22 @@ headers = {
     "X-API-Key": "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab",
 }
 
-# Initalize throw-away account for this example - check that is has funds before running script
-mnemonic_phrase = 'code thrive mouse code badge example pride stereo sell viable adjust planet text close erupt embrace nature upon february weekend humble surprise shrug absorb faint';
+# Initialize throw-away account for this example - check that is has funds before running script
+mnemonic_phrase = 'code thrive mouse code badge example pride stereo sell viable adjust planet text close erupt embrace nature upon february weekend humble surprise shrug absorb faint'
 account_private_key = mnemonic.to_private_key(mnemonic_phrase)
-account_public_key = mnemonic.to_public_key(mnemonic_phrase)
+account_public_key = account.address_from_private_key(account_private_key)
 
 algodclient = algod.AlgodClient(algod_token, algod_address, headers)
 
 # get suggested parameters from Algod
 params = algodclient.suggested_params()
 
-gh = params.gh
-first_valid_round = params.first
-last_valid_round = params.last
-fee = params.min_fee
-send_amount = 10
-
+send_amount = 10  # amount to send in microAlgos
 existing_account = account_public_key
 send_to_address = 'AEC4WDHXCDF4B5LBNXXRTB3IJTVJSWUZ4VJ4THPU2QGRJGTA3MIDFN3CQA'
 
 # Create and sign transaction
-tx = transaction.PaymentTxn(existing_account, fee, first_valid_round, last_valid_round, gh, send_to_address,
-                            send_amount, flat_fee=True)
+tx = PaymentTxn(existing_account, params, send_to_address, send_amount)
 signed_tx = tx.sign(account_private_key)
 
 try:
